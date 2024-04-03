@@ -37,6 +37,7 @@ namespace lab12._1
 
                             answer = ChooseAnswer(1, MyList<Emoji>.lists.Count);
                             current = MyList<Emoji>.lists[answer-1];
+
                         }
                         return; 
                     case 2:
