@@ -102,7 +102,11 @@ namespace lab12._1
             }
         }
 
-        public MyList() { lists.Add(this); }
+        public MyList() 
+        {
+            id = new Id();
+            lists.Add(this); 
+        }
 
         public MyList(int size)
         {
@@ -114,7 +118,7 @@ namespace lab12._1
                 T newItem = MakeRandomItem();
                 AddToEnd(newItem);
             }
-
+            id = new Id();
             lists.Add(this);
         }
 
@@ -131,7 +135,7 @@ namespace lab12._1
             {
                 AddToEnd(collection[i]);
             }
-
+            id = new Id ();
             lists.Add(this);
         }
 
@@ -270,6 +274,14 @@ namespace lab12._1
             else throw new Exception("Добавление отрицательного количества элементов");
         }
 
+        public static void CreateEmptyMyList()
+        {
+            MyList<T> newList = new MyList<T>();
+        }
 
+        public static void InitMyList(int number)
+        {
+            MyList<T> myList = new MyList<T>(number);
+        }
     }
 }
