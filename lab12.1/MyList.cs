@@ -50,20 +50,6 @@ namespace lab12._1
 
         public int Count => count;
 
-        public Node<T> MakeRandomData()
-        {
-            T data = new T();
-            data.RandomInit();
-            return new Node<T>(data);
-        }
-
-        public T MakeRandomItem()
-        {
-            T data = new T();
-            data.RandomInit();
-            return data;
-        }
-
         public void AddToBegin(T item)
         {
             T newData = (T)item.Clone();
@@ -91,7 +77,7 @@ namespace lab12._1
 
             if (end != null)
             {
-                end.Prev = newItem;
+                end.Next = newItem;
                 newItem.Prev = end;
                 end = newItem;
             }
@@ -111,11 +97,11 @@ namespace lab12._1
         public MyList(int size)
         {
             if (size <= 0) throw new Exception("Невозможный размер");
-            beg = MakeRandomData();
+            beg = Node<T>.MakeRandomData();
             end = beg;
             for(int i = 1; i < size; i++) 
             {
-                T newItem = MakeRandomItem();
+                T newItem = Node<T>.MakeRandomItem();
                 AddToEnd(newItem);
             }
             id = new Id();
@@ -145,7 +131,7 @@ namespace lab12._1
                 Console.WriteLine("Коллекция пуста");
             Node<T>? current = beg;
 
-            for (int i = 0; current != null; i++)
+            while (current != null)
             {
                 Console.WriteLine(current);
                 current = current.Next;
@@ -163,9 +149,9 @@ namespace lab12._1
 
             while (current != null)
             {
-                T cloneData = (T)current.Data.Clone();
+                //T cloneData = (T)current.Data.Clone();
 
-                clone.AddToEnd(cloneData);
+                clone.AddToEnd(current.Data);
 
                 current = current.Next;
             }
@@ -178,19 +164,19 @@ namespace lab12._1
             if (this == null) throw new Exception("Список не инициализирован");
             if (count == 0) throw new Exception("Список не инициализирован");
 
-            if(beg == target && end == target)
+            if(beg.Equals(target) && end.Equals(target))
             {
                 count--;
                 return null;
             }
-            else if (beg == target)
+            else if (beg.Equals(target))
             {
                 beg = beg.Next;
                 beg.Prev = null;
                 count--;
                 return this;
             }
-            else if(end == target)
+            else if(end.Equals(target))
             {
                 end = end.Prev;
                 end.Next = null;
@@ -201,7 +187,7 @@ namespace lab12._1
             Node<T>? current = beg.Next;
             while(current != end)
             {
-                if(current == target)
+                if(current.Equals(target))
                 {
                     current.Prev.Next = current.Next;
                     current.Next.Prev = current.Prev;
@@ -228,8 +214,9 @@ namespace lab12._1
                     else
                         return this;
                 }
+                else throw new Exception("Тип не приводится к объекту библиотеки");
             }
-            else throw new Exception("Тип не приводится к объекту библиотеки");
+           // else throw new Exception("Тип не приводится к объекту библиотеки");
 
 
             if (beg.Data is Emoji)

@@ -50,7 +50,7 @@ namespace lab12._1
                             Console.WriteLine("0) Главное меню");
 
                             answer = ChooseAnswer(0, 5);
-                            switch(answer)
+                            switch (answer)
                             {
                                 case 0: break;
 
@@ -60,14 +60,14 @@ namespace lab12._1
                                     Console.WriteLine("Нажмите, чтобы выйти");
                                     Console.ReadLine();
                                     break;
-                                case 2: 
+                                case 2:
                                     Console.Clear();
                                     MyList<Emoji> newList = current.Clone();
                                     Console.WriteLine("Клонирование произведено");
                                     break;
                                 case 3:
                                     Console.Clear();
-                                    MyList<Emoji>.lists.RemoveAt(curN-1);
+                                    MyList<Emoji>.lists.RemoveAt(curN - 1);
                                     current = null;
                                     Console.WriteLine("Удаление произведено");
                                     break;
@@ -75,9 +75,13 @@ namespace lab12._1
                                     Console.Clear();
                                     Console.WriteLine("Введите имя для удаления:");
                                     string name = Console.ReadLine();
-                                    Console.Clear() ;
-                                    MyList<Emoji>.lists[curN-1] = MyList<Emoji>.lists[curN - 1].DeleteByName(name);
-                                    Console.WriteLine("Удаление было произведено");
+                                    Console.Clear();
+                                    try
+                                    { 
+                                        MyList<Emoji>.lists[curN - 1] = MyList<Emoji>.lists[curN - 1].DeleteByName(name);
+                                        Console.WriteLine("Удаление было произведено");
+                                    }
+                                    catch { Console.WriteLine("Действие невозможно с этим типом данных"); }
                                     break ; 
                                 case 5:
                                     Console.Clear();
