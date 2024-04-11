@@ -20,4 +20,10 @@
     <ProjectReference Include="..\lab12.1\lab12.1.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="CustomLibrary">
+      <HintPath>..\..\CustomLibrary\CustomLibrary\bin\Debug\net8.0\CustomLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

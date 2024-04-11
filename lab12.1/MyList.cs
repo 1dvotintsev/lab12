@@ -34,7 +34,7 @@ namespace lab12._1
         }
     }
 
-    internal class MyList<T> where T : IInit, ICloneable, new()
+    public class MyList<T> where T : IInit, ICloneable, new()
     {
         public static List<MyList<T>> lists = new List<MyList<T>>(); 
         public Node<T>? beg;
@@ -91,7 +91,8 @@ namespace lab12._1
         public MyList() 
         {
             id = new Id();
-            lists.Add(this); 
+            lists.Add(this);
+            count = 0;
         }
 
         public MyList(int size)
@@ -99,7 +100,7 @@ namespace lab12._1
             if (size <= 0) throw new Exception("Невозможный размер");
             beg = Node<T>.MakeRandomData();
             end = beg;
-            for(int i = 1; i < size; i++) 
+            for(int i = 0; i < size; i++) 
             {
                 T newItem = Node<T>.MakeRandomItem();
                 AddToEnd(newItem);
@@ -117,7 +118,7 @@ namespace lab12._1
             beg = new Node<T> (newData);
             end = beg;
 
-            for(int i = 1;i < collection.Length;i++)
+            for(int i = 0;i < collection.Length;i++)
             {
                 AddToEnd(collection[i]);
             }
@@ -207,10 +208,11 @@ namespace lab12._1
 
             if(count == 1)
             {
+                //count--;
                 if(beg.Data is Emoji emoji )
                 {
                     if (emoji.Name == name)
-                        this.Delete(beg);
+                        return this.Delete(beg);
                     else
                         return this;
                 }
@@ -221,6 +223,7 @@ namespace lab12._1
 
             if (beg.Data is Emoji)
             {
+                count--;
                 Node<T>? current = beg;
 
                 while (current != null)

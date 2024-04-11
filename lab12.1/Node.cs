@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace lab12._1
 {
-    internal class Node<T> where T: IInit, new() 
+    public class Node<T> where T: IInit, new() 
     {
         public T? Data { get; set; }
 
