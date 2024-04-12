@@ -142,7 +142,11 @@ namespace lab12._1
         public MyList<T> Clone()
         {
             if (this == null) throw new Exception("Список не инициализирован");
-            if (count == 0) throw new Exception("Список не инициализирован");
+            if (count == 0)
+            {
+                MyList<T> clne = new MyList<T>();
+                return clne;
+            }
 
             MyList<T> clone = new MyList<T>();
 
@@ -160,45 +164,51 @@ namespace lab12._1
             return clone;
         }
 
-        public MyList<T>? Delete(Node<T> target)
+        public MyList<T>? Delete(Node<T>? target)
         {
             if (this == null) throw new Exception("Список не инициализирован");
             if (count == 0) throw new Exception("Список не инициализирован");
 
-            if(beg.Equals(target) && end.Equals(target))
+            if (target != null)
             {
-                count--;
-                return null;
-            }
-            else if (beg.Equals(target))
-            {
-                beg = beg.Next;
-                beg.Prev = null;
-                count--;
-                return this;
-            }
-            else if(end.Equals(target))
-            {
-                end = end.Prev;
-                end.Next = null;
-                count--;
-                return this;
-            }
-
-            Node<T>? current = beg.Next;
-            while(current != end)
-            {
-                if(current.Equals(target))
+                if (beg.Equals(target) && end.Equals(target))
                 {
-                    current.Prev.Next = current.Next;
-                    current.Next.Prev = current.Prev;
+                    count--;
+                    beg = null;
+                    end = null;
+                    return this;
+                }
+                else if (beg.Equals(target))
+                {
+                    beg = beg.Next;
+                    beg.Prev = null;
                     count--;
                     return this;
                 }
-                else
-                    current = current.Next;
+                else if (end.Equals(target))
+                {
+                    end = end.Prev;
+                    end.Next = null;
+                    count--;
+                    return this;
+                }
+
+                Node<T>? current = beg.Next;
+                while (current != end)
+                {
+                    if (current.Equals(target))
+                    {
+                        current.Prev.Next = current.Next;
+                        current.Next.Prev = current.Prev;
+                        count--;
+                        return this;
+                    }
+                    else
+                        current = current.Next;
+                }
+                return this;
             }
-            return this;
+            else { return this; }
         }
 
         public MyList<T> DeleteByName(string name)
@@ -223,7 +233,6 @@ namespace lab12._1
 
             if (beg.Data is Emoji)
             {
-                count--;
                 Node<T>? current = beg;
 
                 while (current != null)
@@ -232,8 +241,17 @@ namespace lab12._1
                     {
                         if (e.Name == name)
                         {
-                            current = current.Next;
-                            this.Delete(current.Prev);
+                            //current = current.Next;
+                            if (current.Next != null)
+                            {
+                                current = current.Next;
+                                this.Delete(current.Prev);
+                            }
+                            else
+                            {
+                                this.Delete(current);
+                                current = null;
+                            }
                         }
                         else
                         {

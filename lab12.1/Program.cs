@@ -55,21 +55,33 @@ namespace lab12._1
                                 case 0: break;
 
                                 case 1:
-                                    Console.Clear();
-                                    current.PrintList();
-                                    Console.WriteLine("Нажмите, чтобы выйти");
-                                    Console.ReadLine();
+                                    try
+                                    {
+                                        Console.Clear();
+                                        current.PrintList();
+                                        Console.WriteLine("Нажмите, чтобы выйти");
+                                        Console.ReadLine();
+                                    }
+                                    catch (Exception ex) { Console.WriteLine(ex.Message); }
                                     break;
                                 case 2:
-                                    Console.Clear();
-                                    MyList<Emoji> newList = current.Clone();
-                                    Console.WriteLine("Клонирование произведено");
+                                    try
+                                    {
+                                        Console.Clear();
+                                        MyList<Emoji> newList = current.Clone();
+                                        Console.WriteLine("Клонирование произведено");
+                                    }
+                                    catch(Exception ex) { Console.WriteLine(ex.Message); }
                                     break;
                                 case 3:
-                                    Console.Clear();
-                                    MyList<Emoji>.lists.RemoveAt(curN - 1);
-                                    current = null;
-                                    Console.WriteLine("Удаление произведено");
+                                    try
+                                    {
+                                        Console.Clear();
+                                        MyList<Emoji>.lists.RemoveAt(curN - 1);
+                                        current = null;
+                                        Console.WriteLine("Удаление произведено");
+                                    }
+                                    catch(Exception ex) { Console.WriteLine(ex.Message); }
                                     break;
                                 case 4:
                                     Console.Clear();
@@ -84,11 +96,15 @@ namespace lab12._1
                                     catch { Console.WriteLine("Действие невозможно с этим типом данных"); }
                                     break ; 
                                 case 5:
-                                    Console.Clear();
-                                    Console.WriteLine("Сколько элементов вы хотите добавить?");
-                                    answer= ChooseAnswer(0, 1000);
-                                    MyList<Emoji>.lists[curN - 1] = MyList<Emoji>.lists[curN - 1].AddRandomItemsToBegin(answer);
-                                    Console.WriteLine("Добавление было произведено");
+                                    try
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("Сколько элементов вы хотите добавить?");
+                                        answer = ChooseAnswer(0, 1000);
+                                        MyList<Emoji>.lists[curN - 1] = MyList<Emoji>.lists[curN - 1].AddRandomItemsToBegin(answer);
+                                        Console.WriteLine("Добавление было произведено");
+                                    }
+                                    catch(Exception ex) { Console.WriteLine(ex.Message); }
                                     break;
                                 default: break;
                             }
