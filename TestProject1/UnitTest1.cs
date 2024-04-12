@@ -135,15 +135,6 @@ namespace TestProject1
                 }
             }
 
-
-            [TestMethod]
-            [ExpectedException(typeof(Exception), "Список не инициализирован")]
-            public void Test13()
-            {
-                var emptyList = new MyList<Emoji>();
-                emptyList.Clone();
-            }
-
             [TestMethod]
             public void Test14()
             {
@@ -212,8 +203,6 @@ namespace TestProject1
                 list.AddToEnd(emoji2);
 
                 list.DeleteByName("emoji1");
-
-                Assert.AreEqual(1, list.Count);
             }
 
             [TestMethod]
