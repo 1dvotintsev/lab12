@@ -356,6 +356,218 @@ namespace TestProject1
                 Assert.IsFalse(node1.Equals(node2));
             }
 
+            [TestMethod]
+            public void Test6()
+            {
+                // Arrange
+                var id = new Id();
+
+                // Act
+                var result = id.ToString();
+
+                // Assert
+                Assert.AreEqual(id.number.ToString(), result);
+            }
+
+            [TestMethod]
+            public void Test7()
+            {
+                // Arrange
+                var id1 = new Id();
+                var id2 = new Id();
+
+                // Act
+                var result = id1.Equals(id2);
+
+                // Assert
+                Assert.AreEqual(result, false);
+            }
+
+            [TestMethod]
+            public void Test8()
+            {
+                // Arrange
+                var id = new Id();
+                var obj = new object();
+
+                // Act
+                var result = id.Equals(obj);
+
+                // Assert
+                Assert.IsFalse(result);
+            }
+
+            [TestMethod]
+            public void Test9()
+            {
+                // Arrange
+                var id = new Id();
+
+                // Act
+                var result = id.GetHashCode();
+
+                // Assert
+                Assert.AreEqual(id.number.GetHashCode(), result);
+            }
+
+            [TestMethod]
+            public void Test10()
+            {
+                // Arrange
+                var list = new MyList<Emoji>();
+
+                // Act
+                var idString = list.Id;
+
+                // Assert
+                Assert.AreEqual(list.Id.ToString(), idString);
+            }
+
+            [TestMethod]
+            public void Test11()
+            {
+                // Arrange, Act & Assert
+                Assert.ThrowsException<Exception>(() => new MyList<Emoji>(null));
+            }
+
+            [TestMethod]
+            public void Test12()
+            {
+                // Arrange, Act & Assert
+                Emoji[] array = new Emoji[0];
+                Assert.ThrowsException<Exception>(() => new MyList<Emoji>(array));
+            }
+
+            
+
+            [TestMethod]
+            public void Test14()
+            {
+                // Arrange
+                var list = new MyList<Emoji>();
+
+                // Act
+                var clone = list.Clone();
+
+                // Assert
+                Assert.IsNotNull(clone);
+                Assert.AreEqual(0, clone.Count);
+            }
+
+            [TestMethod]
+            public void Test15()
+            {
+                // Arrange
+                Emoji e = new Emoji();
+                e.RandomInit();
+                var list = new MyList<Emoji>(e);
+
+                var result = list.Delete(null);
+
+            }
+
+            [TestMethod]
+            public void Test16()
+            {
+                // Arrange
+                var list = new MyList<Emoji>();
+                Emoji em1 = new Emoji();
+                em1.RandomInit();
+                Emoji em2 = new Emoji();
+                em2.RandomInit();
+                list.AddToEnd(em1);
+                list.AddToEnd(em2);
+                var target = list.end;
+
+                var result = list.Delete(target);
+
+
+            }
+
+            [TestMethod]
+            public void MyList_DeleteByName_ListNotInitialized_ThrowsException()
+            {
+                // Arrange
+                MyList<Emoji> list = null;
+
+                // Act & Assert
+                Assert.ThrowsException<Exception>(() => list.DeleteByName("test"));
+            }
+
+            [TestMethod]
+            public void MyList_DeleteByName_ListEmpty_ThrowsException()
+            {
+                // Arrange
+                var list = new MyList<Emoji>();
+
+                // Act & Assert
+                Assert.ThrowsException<Exception>(() => list.DeleteByName("test"));
+            }
+
+            [TestMethod]
+            public void MyList_DeleteByName_ListContainsOneElement_NotMatchingName_ReturnsOriginalList()
+            {
+                // Arrange
+                var list = new MyList<Emoji>();
+                Emoji e = new Emoji();
+                e.Name = "not_test";
+                list.AddToEnd(e);
+
+                // Act
+                var result = list.DeleteByName("test");
+
+                // Assert
+                Assert.AreSame(list, result);
+                Assert.AreEqual(1, result.Count);
+            }
+
+            [TestMethod]
+            public void MyList_DeleteByName_ListContainsOneElement_MatchingName_ReturnsEmptyList()
+            {
+                // Arrange
+                var list = new MyList<Emoji>();
+                Emoji e = new Emoji();
+                e.Name = "test";
+                list.AddToEnd(e);
+
+                // Act
+                var result = list.DeleteByName("test");
+
+                // Assert
+                Assert.AreEqual(0, result.Count);
+            }
+
+            [TestMethod]
+            public void MyList_DeleteByName_ListContainsMultipleElements_MatchingName_RemovesAllMatchingElements()
+            {
+                // Arrange
+                var list = new MyList<Emoji>();
+
+                Emoji e1 = new Emoji();
+                e1.Name = "test";
+                Emoji e2 = new Emoji();
+                e2.Name = "not_test";
+                Emoji e3 = new Emoji();
+                e3.Name = "test";
+                Emoji e4 = new Emoji();
+                e4.Name = "test";
+                Emoji e5 = new Emoji();
+                e5.Name = "not_test";
+
+                list.AddToEnd(e1);
+                list.AddToEnd(e2);
+                list.AddToEnd(e3);
+                list.AddToEnd(e4);
+                list.AddToEnd(e5);
+
+                // Act
+                var result = list.DeleteByName("test");
+
+                // Assert
+                Assert.AreEqual(2, result.Count);
+            }
+
+            
         }
     }
 }
